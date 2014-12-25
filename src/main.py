@@ -8,14 +8,15 @@ import output
 
 
 # Global options
-username = "Cyrus095"
+username = ""
 profile_name = "http://awbw.amarriner.com/profile.php?username="
 game_name = "http://awbw.amarriner.com/game.php?games_id="
 
 
 def usage():
     """Shows how to use the program."""
-    print("Usage:\n\t%s [-h] [-w]" % sys.argv[0])
+    print("Usage:\n\t%s <username> [-h]" % sys.argv[0])
+    print("username: Your name on the awbw website.")
     print("-h: Shows how to use the program, closing it afterwards.")
     exit(1)
 
@@ -26,8 +27,11 @@ for arg in sys.argv[1:]:
     if arg == "-h":
         usage()
     else:
-        print("Error: Argument '" + arg + "' not recognized!")
-        usage()
+        username = arg
+
+if username == "":
+    print("No username has been entered!")
+    usage()
 
 # Finds rooms in which it is the user's turn
 wars = wars.Wars(username, game_name)

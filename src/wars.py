@@ -47,8 +47,8 @@ class Wars:
         self._current_rooms = {}
         for d in self._game_dic:
             if self.connect(self._game_page + d):
-                if re.search("Game.*Updated:" + user, self._response.text):
-                    self._current_rooms[d] = dic[d]
+                if re.search(user, self._response.text):
+                    self._current_rooms[d] = self._game_dic[d]
 
     def format_name(self, name):
         """Fixes some html chars that can't be changed with bs4."""
