@@ -1,0 +1,8 @@
+# Ignored git files and folders
+*~
+__pycache__
+
+# virtualenv folders
+bin/
+include/
+lib/

@@ -1,0 +1,43 @@
+#!/bin/bash
+# Script that adds a virtual environment ("virtualenv") to the
+# current directory
+
+# Current directory name
+DIR=`cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd`
+
+# Requirements file
+REQ="$DIR/doc/requirements.txt"
+
+# --------------------------------------------------------------------
+# Shows how to use the script
+
+function usage {
+    echo -e "\e[1mUSAGE\e[0m"
+    echo -e "\t./`basename $0` [\e[1m-h\e[0m]\n"
+
+    echo -e "\e[1mDESCRTPTION\e[0m"
+    echo -e "\tAdds a Python 3 virtualenv to the current directory."
+    echo -e "\tIt also installs any requirements found in '$REQ'.\n"
+
+    echo -e "\e[1mOPTIONS\e[0m"
+    echo -e "\t\e[1m-h\e[0m\tShows how to use the script, closing it afterwards.\n"
+
+    exit
+}
+
+# --------------------------------------------------------------------
+# MAIN 
+
+# Command line arguments
+for arg in "$@"; do
+    if [ "$arg" == "-h" ]; then usage; fi
+done
+
+virtualenv -p python3 $DIR
+if [ -f "$REQ" ]; then
+    source $DIR/bin/activate
+    echo "Installing requirements from $REQ..."
+    pip3 install -r $REQ
+fi
+
+echo "Done!"
