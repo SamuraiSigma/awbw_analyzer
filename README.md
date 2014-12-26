@@ -37,7 +37,7 @@ Created by: Leonardo Pereira Macedo
 ###### src/
 
   - ***main.py***: Main module of the project. Treats command line arguments (see them with the *-h* option).
-  - ***output.py***: Organizes the output for the user. Only terminal for now, but I'm thinking of adding a window interface later...
+  - ***output.py***: Organizes the output for the user. Can be through terminal or a window GUI.
   - ***wars.py***: Contains the Wars class, responsible for getting info on the awbw website.
 
 ### Special Thanks

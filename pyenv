@@ -13,7 +13,7 @@ REQ="$DIR/doc/requirements.txt"
 
 function usage {
     echo -e "\e[1mUSAGE\e[0m"
-    echo -e "\t./`basename $0` [\e[1m-h\e[0m]\n"
+    echo -e "\t./`basename $0` [\e[1m-h\e[0m] [\e[1m-r\e[0m]\n"
 
     echo -e "\e[1mDESCRTPTION\e[0m"
     echo -e "\tAdds a Python 3 virtualenv to the current directory."
@@ -21,6 +21,7 @@ function usage {
 
     echo -e "\e[1mOPTIONS\e[0m"
     echo -e "\t\e[1m-h\e[0m\tShows how to use the script, closing it afterwards.\n"
+    echo -e "\t\e[1m-r\e[0m\tDeletes the bin, lib and include folders created by this script.\n"
 
     exit
 }
@@ -31,6 +32,11 @@ function usage {
 # Command line arguments
 for arg in "$@"; do
     if [ "$arg" == "-h" ]; then usage; fi
+    if [ "$arg" == "-r" ]; then
+        rm -rf bin/ include/ lib/
+        echo "Deleted bin, include, lib folders!"
+        exit
+    fi
 done
 
 virtualenv -p python3 $DIR

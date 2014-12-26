@@ -62,6 +62,10 @@ class Wars:
         return id.replace('id=', '')
 
     @property
+    def username(self):
+        return self._username
+
+    @property
     def game_dic(self):
         return self._game_dic
 

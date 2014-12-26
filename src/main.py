@@ -2,7 +2,7 @@
 
 """Module from which the program treats arguments and is executed."""
 
-import sys     # Command line arguments
+import sys  # Command line arguments
 import wars
 import output
 
@@ -15,16 +15,25 @@ game_name = "http://awbw.amarriner.com/game.php?games_id="
 
 def usage():
     """Shows how to use the program."""
-    print("Usage:\n\t%s <username> [-h]" % sys.argv[0])
+    print("Usage:\n\t%s <username> [-a] [-w] [-h]" % sys.argv[0])
     print("username: Your name on the awbw website.")
+    print("-a: Show all rooms.")
+    print("-w: Show data in a window interface.")
     print("-h: Shows how to use the program, closing it afterwards.")
     exit(1)
 
 # -------------------------------------------------------------------
 
+all_rooms = False
+window = False
+
 # Command line arguments analysis
 for arg in sys.argv[1:]:
-    if arg == "-h":
+    if arg == "-a":
+        all_rooms = True
+    elif arg == "-w":
+        window = True
+    elif arg == "-h":
         usage()
     else:
         username = arg
@@ -42,6 +51,7 @@ wars.read_current_games()
 wars.user_turn()
 
 # Delivers output
-output = output.Output(wars.game_dic, wars.current_rooms)
-output.show_all_rooms()
+output = output.Output(wars, window)
+if all_rooms:
+    output.show_all_rooms()
 output.show_your_turn()
