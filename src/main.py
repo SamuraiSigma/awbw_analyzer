@@ -18,7 +18,7 @@ def usage():
     print("Usage:\n\t%s <username> [-a] [-w] [-h]" % sys.argv[0])
     print("username: Your name on the awbw website.")
     print("-a: Show all rooms.")
-    print("-w: Show data in a window interface.")
+    print("-w: Show data in a window GUI.")
     print("-h: Shows how to use the program, closing it afterwards.")
     exit(1)
 

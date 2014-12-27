@@ -1,0 +1,13 @@
+#!/bin/bash
+# Simple script to simplify the program's execution
+
+# Project's directory
+DIR=`cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd`
+
+# Code directory
+SRCDIR="$DIR/src"
+
+# --------------------------------------------------------------------
+# MAIN
+
+source $DIR/bin/activate && $SRCDIR/main.py $@ && deactivate

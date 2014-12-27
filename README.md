@@ -4,27 +4,27 @@ Created by: Leonardo Pereira Macedo
 
 ### Introduction
 
-  - I'm a big fan of the Advance Wars franchise from Intelligent Systems on Nintendo. Searching around the Internet, I was delighted on finding a website in which you can play it online: **Advance Wars by Web**! For those who're interested, here's the website: http://awbw.amarriner.com
+  - I'm a big fan of the Advance Wars franchise from Intelligent Systems on Nintendo. Searching around the Internet, I was delighted on finding a website in which you can play it online: **Advance Wars by Web**! For those who're interested, here's the [website](http://awbw.amarriner.com "awbw").
 
   - I've had my share of fun playing it. Only thing that bugged me was checking the website daily to see if one of my games had been updated. Sure, there's an option to recieve an e-mail when your turn arrives in a game, but I was thinking of something a little more practical.
 
-  - So, here's when this program comes in handy! At the moment, it only has a terminal option mostly for Linux users, but I'll try expanding it whenever possible with more features. Feel free to give me any advice, suggestion or constructive criticism, as I'm not that strong in Python or programming yet. :P
+  - So, here's when this program, created for Linux, comes in handy! It's possible to recieve a window GUI message with information about your game rooms.
 
-### Usage (mostly Linux)
+  - Feel free to give me any advice, suggestion or constructive criticism, as I'm trying my best to hone my coding skills. :P
 
-  I'll consider that you are on this project's root (the *awbw* folder) when executing these commands.
+### Usage (Linux)
 
-  **1.** I recommend running the **pyenv** script first. It creates three folders necessary for the virtual environment (*bin*, *lib*, *include*) and installs dependencies so you can run the program with ease (hopefully...).
+  **1.** Run the **pyenv** script first. It creates three folders necessary for the virtual environment (*bin*, *lib*, *include*) and installs dependencies so you can run the program with ease (hopefully...).  
 
-  ***$ ./pyenv***
+  **2.** To start the main program, just run the **execute** script:
 
-  **2.** Next, while on the root of this project, activate the virtual environment:
+  ***./execute <username> [-a] [-w] [-h]***  
+  *-username*: Your name on the awbw website.  
+  *-a*: Show all rooms.  
+  *-w*: Show data in a window GUI.  
+  *-h*: Shows how to use the program, closing it afterwards.  
 
-  ***$ source bin/activate***
-
-  **3.** To execute the main program, just run **src/main.py** as if it were a script (*username* is your name on the awbw website):
-
-  ***./src/main.py <username>***
+  **3.** To execute the script periodically, add it to your **crontab**.
 
 ### Folders
 
@@ -36,7 +36,7 @@ Created by: Leonardo Pereira Macedo
 
 ###### src/
 
-  - ***main.py***: Main module of the project. Treats command line arguments (see them with the *-h* option).
+  - ***main.py***: Main module of the project. Treats command line arguments.
   - ***output.py***: Organizes the output for the user. Can be through terminal or a window GUI.
   - ***wars.py***: Contains the Wars class, responsible for getting info on the awbw website.
 
