@@ -27,7 +27,8 @@ class Wars:
            that the user is currently playing in."""
         # Search for room names
         text = self._response.text.split("Completed Games")
-        soup = bs4.BeautifulSoup(text[0])
+        text = text[0].split("Current Games")
+        soup = bs4.BeautifulSoup(text[1])
         rooms = soup.select('a[href^=game.php?games_id=]')
 
         # Create the room dictionary
