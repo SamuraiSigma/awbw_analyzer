@@ -1,6 +1,5 @@
 """Module responsible for the Output class."""
 
-import sys
 import easygui  # Window GUI
 
 

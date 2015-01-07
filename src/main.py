@@ -7,10 +7,27 @@ import wars
 import output
 
 
-# Global options
-username = ""
-profile_name = "http://awbw.amarriner.com/profile.php?username="
-game_name = "http://awbw.amarriner.com/game.php?games_id="
+def read_args():
+    """Reads and treats command line arguments."""
+    username = ""
+    all_rooms = False
+    window = False
+
+    for arg in sys.argv[1:]:
+        if arg == "-a":
+            all_rooms = True
+        elif arg == "-w":
+            window = True
+        elif arg == "-h":
+            usage()
+        else:
+            username += arg + " "
+
+    if username == "":
+        print("No username has been entered!")
+        usage()
+
+    return (username.rstrip(" "), all_rooms, window)
 
 
 def usage():
@@ -20,33 +37,19 @@ def usage():
     print("-a: Show all rooms.")
     print("-w: Show data in a window GUI.")
     print("-h: Shows how to use the program, closing it afterwards.")
-    exit(1)
+    sys.exit(1)
 
 # -------------------------------------------------------------------
 
-all_rooms = False
-window = False
 
 # Command line arguments analysis
-for arg in sys.argv[1:]:
-    if arg == "-a":
-        all_rooms = True
-    elif arg == "-w":
-        window = True
-    elif arg == "-h":
-        usage()
-    else:
-        username = arg
-
-if username == "":
-    print("No username has been entered!")
-    usage()
+username, all_rooms, window = read_args()
 
 # Finds rooms in which it is the user's turn
-wars = wars.Wars(username, game_name)
-if not wars.connect(profile_name + username):
+wars = wars.Wars(username)
+if not wars.connect_profile():
     print("Error when connecting to awbw website!")
-    exit(2)
+    sys.exit(2)
 wars.read_current_games()
 wars.user_turn()
 
