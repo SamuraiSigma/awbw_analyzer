@@ -32,16 +32,15 @@ class User:
 
     def read_from_user(self):
         """Collects username and preferences directly from user input."""
-        msg = "Please type in your username and preferred options"
+        msg = "Please type in your username and preferred options."
         title = "Advance Wars by Web Analyzer"
-        field_names = ["Username",
-                       "Show all rooms? (Yes=1, No=0)",
-                       "Interval to run program again",
-                       "Interval to show user again"]
-        field_values = self.read_file()
+        options = ["Username",
+                   "Show all rooms? (Yes=1, No=0)",
+                   "Minutes to run program again"]
+        values = self.read_file()
 
         while True:
-            self._data = easygui.multenterbox(msg, title, field_names, field_values)
+            self._data = easygui.multenterbox(msg, title, options, values)
             if self._data is None:
                 sys.exit(1)
             if self.process_data():
@@ -49,7 +48,7 @@ class User:
         self.write_file()
 
     def process_data(self):
-        """Validates information given by the user."""
+        """Checks if information given by the user is valid."""
         name = self._data[0]
         if name == "":
             return False
@@ -60,9 +59,11 @@ class User:
         else:
             self._data[1] = 1
 
-        for time in self._data[2:4]:
-            if time != "" and not re.search('\d+[m,h,d]', time):
-                return False
+        time = self._data[2]
+        if time == "":
+            self._data = "120"
+        elif not re.search('(\d*\.)?\d+', time):
+            return False
 
         return True
 

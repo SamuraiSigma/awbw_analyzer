@@ -17,7 +17,7 @@ class Output:
         if self._wars.game_dic:
             string = self.create_string(self._wars.game_dic)
             string = self._wars.username + ", you are in rooms:" + string
-            easygui.msgbox(string, title=self._title)
+            easygui.msgbox(string, self._title)
 
     def show_your_turn(self):
         """Shows rooms in which it is the user's turn to play."""
@@ -25,7 +25,7 @@ class Output:
             string = self.create_string(self._wars.current_rooms)
             string = self._wars.username + ", it's your turn on rooms:" \
                 + string
-            easygui.msgbox(string, title=self._title)
+            easygui.msgbox(string, self._title)
 
     def create_string(self, dic):
         """Creates a string with the values in the given dictionary."""

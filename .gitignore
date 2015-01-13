@@ -1,5 +1,6 @@
 # Ignored files and folders
 *~
+.user.txt
 __pycache__
 
 # virtualenv folders

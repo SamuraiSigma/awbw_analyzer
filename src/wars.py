@@ -1,6 +1,7 @@
 """Module responsible for the Wars class."""
 
 import bs4           # Filter HTML
+import easygui       # Window GUI
 import re            # Regex
 import requests      # Read info from an URL
 import sys           # exit()
@@ -18,6 +19,7 @@ class Wars:
         """Reads some initial data regarding the user and URL."""
         self._username = username
         self._wait_time = 5
+        self._title = "Advance Wars by Web Analyzer"
 
     def connect_profile(self):
         """Attempts to connect to the user's profile page."""
@@ -28,7 +30,7 @@ class Wars:
         try:
             self._response = requests.get(page, timeout=self._wait_time)
         except:
-            return False
+            self.connection_error()
         return True
 
     def read_current_games(self):
@@ -40,7 +42,8 @@ class Wars:
         try:
             soup = bs4.BeautifulSoup(text[1])
         except IndexError:
-            print("Error! User '" + self._username + "' not found on awbw!")
+            msg = "Error! User '" + self._username + "' not found on awbw!"
+            easygui.msgbox(msg, self._title)
             sys.exit(3)
         rooms = soup.select('a[href^=game.php?games_id=]')
 
@@ -74,6 +77,11 @@ class Wars:
     def format_id(self, id):
         """Removes a tag from the id number."""
         return id.replace('id=', '')
+
+    def connection_error(self):
+        msg = "Error when connecting to awbw website!"
+        easygui.msgbox(msg, self._title)
+        sys.exit(2)
 
     @property
     def username(self):
