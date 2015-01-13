@@ -1,9 +1,9 @@
 """Module responsible for the Wars class."""
 
+import bs4           # Filter HTML
 import re            # Regex
 import requests      # Read info from an URL
 import sys           # exit()
-import bs4           # Filter HTML
 
 
 # Advance Wars by Web URLs
@@ -40,7 +40,7 @@ class Wars:
         try:
             soup = bs4.BeautifulSoup(text[1])
         except IndexError:
-            print("Error! Username not found on awbw!")
+            print("Error! User '" + self._username + "' not found on awbw!")
             sys.exit(3)
         rooms = soup.select('a[href^=game.php?games_id=]')
 
