@@ -1,5 +1,5 @@
 #!/bin/bash
-# Simple script to simplify the program's execution
+# Simple script to simplify awbw_analyzer's execution.
 
 # Project's directory
 DIR=`cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd`
@@ -8,6 +8,42 @@ DIR=`cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd`
 SRCDIR="$DIR/src"
 
 # --------------------------------------------------------------------
+# Shows how to use the script.
+
+function usage {
+    ARGS="[\e[1m-h\e[0m] [\e[1m-r\e[0m]"
+
+    echo -e "\e[1mUSAGE\e[0m"
+    echo -e "\t./`basename $0` $ARGS\n"
+
+    echo -e "\e[1mDESCRIPTION\e[0m"
+    echo -e "\tExecutes the awbw_analyzer program on Linux.\n"
+
+    echo -e "\e[1mOPTIONS\e[0m"
+    echo -e "\tSeparate each option with a space.\n"
+
+    echo -e "\t\e[1m-h\e[0m\tShows how to use the script and abandons it.\n"
+    echo -e "\t\e[1m-r\e[0m\tRemoves the program's temporary files.\n"
+
+    exit
+}
+
+# --------------------------------------------------------------------
 # MAIN
 
+# Treats command line arguments
+for arg in $@; do
+    case $arg in
+    -h)
+        usage $0;;
+    -r)
+        rm -fv .instance.txt .rooms.txt .user.txt
+        exit 0;;
+    *)
+        echo -e "'$arg' argument not supported!\n"
+        usage $0;;        
+    esac
+done
+
+# Executes the main program
 source $DIR/bin/activate && $SRCDIR/main.py $@ && deactivate

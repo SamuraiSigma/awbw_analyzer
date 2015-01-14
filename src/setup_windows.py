@@ -7,6 +7,9 @@ import sys
 
 
 if sys.platform == 'win32':
+    py2exe_options = dict(excludes=['_ssl', 'pyreadline', 'difflib',
+                                    'doctest', 'locale', 'optparse',
+                                    'pickle', 'calendar'])
     setup(windows=['main.py'])
 else:
     print("The OS detected isn't Windows!")

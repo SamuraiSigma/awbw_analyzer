@@ -12,12 +12,17 @@ import user
 # -------------------------------------------------------------------
 
 dummy_file = ".instance.txt"
+room_file = ".rooms.txt"
 epoch_time = time.time()
 
 try:
-    # Erases old instance file
+    # Update instance file with current time
     with open(dummy_file, 'w') as f:
         f.write(str(epoch_time))
+
+    # Erase old rooms file
+    with open(room_file, 'w') as f:
+        pass
 
     # Collects initial data from the user
     user = user.User()

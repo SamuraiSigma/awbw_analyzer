@@ -19,7 +19,7 @@ class Output:
         """Shows rooms in which it is the user's turn to play."""
         if self._rooms:
             string = self.create_string(self._rooms)
-            string = self._wars.username + ", it's your turn on rooms:" \
+            string = self._username + ", it's your turn on rooms:" \
                 + string
             if not easygui.ccbox(string, self._title):
                 sys.exit(0)

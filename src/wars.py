@@ -72,6 +72,7 @@ class Wars:
     def check_updates(self):
         """Compares the current rooms recently obtained with the ones
         stored before in the rooms file."""
+        backup_rooms = self._current_rooms[:]  # Creates a copy of the list
         try:
             with open(self._file, 'r') as f:
                 file_rooms = []
@@ -82,12 +83,12 @@ class Wars:
                         self._current_rooms.remove(current)
         except FileNotFoundError:
             pass
-        self.write_rooms()
+        self.write_rooms(backup_rooms)
 
-    def write_rooms(self):
+    def write_rooms(self, rooms):
         """Overwrites the rooms file with the current turn rooms."""
         with open(self._file, 'w') as f:
-            for current in self._current_rooms:
+            for current in rooms:
                 f.write(current + '\n')
 
     def format_name(self, name):
