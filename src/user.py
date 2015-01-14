@@ -35,7 +35,6 @@ class User:
         msg = "Please type in your username and preferred options."
         title = "Advance Wars by Web Analyzer"
         options = ["Username",
-                   "Show all rooms? (Yes=1, No=0)",
                    "Minutes to run program again"]
         values = self.read_file()
 
@@ -53,15 +52,9 @@ class User:
         if name == "":
             return False
 
-        all_rooms = self._data[1]
-        if all_rooms == "" or all_rooms.upper() == "0":
-            self._data[1] = 0
-        else:
-            self._data[1] = 1
-
-        time = self._data[2]
+        time = self._data[1]
         if time == "":
-            self._data = "120"
+            self._data = "5"
         elif not re.search('(\d*\.)?\d+', time):
             return False
 

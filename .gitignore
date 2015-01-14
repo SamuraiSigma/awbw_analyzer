@@ -4,6 +4,7 @@ __pycache__
 
 # This program's temporary files
 .instance.txt
+.rooms.txt
 .user.txt
 
 # virtualenv folders

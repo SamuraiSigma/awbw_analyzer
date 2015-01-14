@@ -17,6 +17,7 @@ class Wars:
 
     def __init__(self, username):
         """Reads some initial data regarding the user and URL."""
+        self._file = ".rooms.txt"
         self._username = username
         self._wait_time = 5
         self._title = "Advance Wars by Web Analyzer"
@@ -29,7 +30,7 @@ class Wars:
         """Tries to get a response from a URL."""
         try:
             self._response = requests.get(page, timeout=self._wait_time)
-        except:
+        except requests.exceptions.ReadTimeout:
             self.connection_error()
         return True
 
@@ -42,7 +43,7 @@ class Wars:
         try:
             soup = bs4.BeautifulSoup(text[1])
         except IndexError:
-            msg = "Error! User '" + self._username + "' not found on awbw!"
+            msg = "Error while processing user's page!"
             easygui.msgbox(msg, self._title)
             sys.exit(3)
         rooms = soup.select('a[href^=game.php?games_id=]')
@@ -61,11 +62,33 @@ class Wars:
         """Checks if it is the user's turn in the rooms."""
         user = "<b>" + self._username + "</b>"
 
-        self._current_rooms = {}
+        self._current_rooms = []
         for d in self._game_dic:
             if self.get_response(game_name + d):
                 if re.search(user, self._response.text):
-                    self._current_rooms[d] = self._game_dic[d]
+                    self._current_rooms.append(self._game_dic[d])
+        self.check_updates()
+
+    def check_updates(self):
+        """Compares the current rooms recently obtained with the ones
+        stored before in the rooms file."""
+        try:
+            with open(self._file, 'r') as f:
+                file_rooms = []
+                for line in f:
+                    file_rooms.append(line.rstrip('\n'))
+                for current in self._current_rooms:
+                    if current in file_rooms:
+                        self._current_rooms.remove(current)
+        except FileNotFoundError:
+            pass
+        self.write_rooms()
+
+    def write_rooms(self):
+        """Overwrites the rooms file with the current turn rooms."""
+        with open(self._file, 'w') as f:
+            for current in self._current_rooms:
+                f.write(current + '\n')
 
     def format_name(self, name):
         """Fixes some html chars that can't be changed with bs4."""
@@ -86,10 +109,6 @@ class Wars:
     @property
     def username(self):
         return self._username
-
-    @property
-    def game_dic(self):
-        return self._game_dic
 
     @property
     def current_rooms(self):

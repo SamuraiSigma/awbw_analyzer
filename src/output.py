@@ -7,32 +7,30 @@ import sys      # exit
 class Output:
     """Handles the output of the program."""
 
-    def __init__(self, wars):
+    def __init__(self, wars, no_room_message):
         """Reads dictionaries related to the rooms the user is
            in on the awbw website."""
-        self._wars = wars
+        self._username = wars.username
+        self._rooms = wars.current_rooms
+        self._no_room = no_room_message
         self._title = "Advance Wars by Web Analyzer"
-
-    def show_all_rooms(self):
-        """Shows all rooms the user is currently playing in."""
-        if self._wars.game_dic:
-            string = self.create_string(self._wars.game_dic)
-            string = self._wars.username + ", you are in rooms:" + string
-            if not easygui.ccbox(string, self._title):
-                sys.exit(0)
 
     def show_your_turn(self):
         """Shows rooms in which it is the user's turn to play."""
-        if self._wars.current_rooms:
-            string = self.create_string(self._wars.current_rooms)
+        if self._rooms:
+            string = self.create_string(self._rooms)
             string = self._wars.username + ", it's your turn on rooms:" \
                 + string
             if not easygui.ccbox(string, self._title):
                 sys.exit(0)
+        elif self._no_room:
+            string = self._username + ", it isn't your turn in any room!"
+            if not easygui.ccbox(string, self._title):
+                sys.exit(0)
 
-    def create_string(self, dic):
-        """Creates a string with the values in the given dictionary."""
+    def create_string(self, lst):
+        """Creates a string with the values in the given list."""
         string = ""
-        for d in dic:
-            string += "\n- " + dic[d]
+        for l in lst:
+            string += "\n- " + l
         return string

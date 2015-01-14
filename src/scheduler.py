@@ -17,11 +17,10 @@ class Scheduler:
     def __init__(self, user_data, dummy_file, epoch_time):
         """Reads some data and begins the loop."""
         self._username = user_data[0]
-        self._all_rooms = user_data[1]
         self._file = dummy_file
         self._epoch = epoch_time
-        self.execute_program()
-        self.run(user_data[2])
+        self.execute_program(no_room_message=True)
+        self.run(user_data[1])
 
     def run(self, loop_time):
         """Loops the program according to a time specified by the user."""
@@ -44,7 +43,7 @@ class Scheduler:
             schedule.run_pending()
             time.sleep(1)
 
-    def execute_program(self):
+    def execute_program(self, no_room_message=False):
         """Searches for rooms and displays them to the user."""
         # Finds rooms in which it is the user's turn
         war = wars.Wars(self._username)
@@ -53,7 +52,5 @@ class Scheduler:
         war.user_turn()
 
         # Delivers output
-        out = output.Output(war)
-        if self._all_rooms:
-            out.show_all_rooms()
+        out = output.Output(war, no_room_message)
         out.show_your_turn()
