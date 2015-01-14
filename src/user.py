@@ -17,8 +17,8 @@ class User:
         """Reads previously collected user data from a file."""
         data = []
         try:
-            with open(self._file, 'r') as _file:
-                for line in _file:
+            with open(self._file, 'r') as f:
+                for line in f:
                     data.append(line.rstrip('\n'))
         except FileNotFoundError:
             pass
@@ -26,9 +26,9 @@ class User:
 
     def write_file(self):
         """Writes collected user data on a file for later access."""
-        with open(self._file, 'w') as _file:
+        with open(self._file, 'w') as f:
             for data in self._data:
-                _file.write(str(data) + '\n')
+                f.write(str(data) + '\n')
 
     def read_from_user(self):
         """Collects username and preferences directly from user input."""

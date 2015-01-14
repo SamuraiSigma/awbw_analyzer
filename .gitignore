@@ -1,7 +1,10 @@
-# Ignored files and folders
+# Some files and folders
 *~
-.user.txt
 __pycache__
+
+# This program's temporary files
+.instance.txt
+.user.txt
 
 # virtualenv folders
 bin/
