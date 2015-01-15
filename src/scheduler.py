@@ -47,10 +47,7 @@ class Scheduler:
         """Searches for rooms and displays them to the user."""
         # Finds rooms in which it is the user's turn
         war = wars.Wars(self._username)
-        war.connect_profile()
-        war.read_current_games()
-        war.user_turn()
-
-        # Delivers output
-        out = output.Output(war, no_room_message)
-        out.show_your_turn()
+        if war.analyze_rooms():
+            # Delivers output
+            out = output.Output(war, no_room_message)
+            out.show_your_turn()

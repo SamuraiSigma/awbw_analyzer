@@ -11,7 +11,7 @@ class Output:
         """Reads dictionaries related to the rooms the user is
            in on the awbw website."""
         self._username = wars.username
-        self._rooms = wars.current_rooms
+        self._rooms = wars.current_rooms.keys()
         self._no_room = no_room_message
         self._title = "Advance Wars by Web Analyzer"
 

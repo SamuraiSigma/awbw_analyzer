@@ -2,7 +2,8 @@
 *~
 __pycache__
 
-# This program's temporary files
+# This program's created files
+error.log
 .instance.txt
 .rooms.txt
 .user.txt
