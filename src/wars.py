@@ -42,14 +42,20 @@ class Wars:
         try:
             self._response = requests.get(page, timeout=self._wait_time)
         except requests.exceptions.ReadTimeout:
+            self.connection_error(timeout=True)
+            return False
+        except requests.exceptions.ConnectionError:
             self.connection_error()
             return False
         return True
 
-    def connection_error(self):
-        """Appends to an error log, informing when the problem ocurred."""
-        msg = time.strftime("%d/%m/%Y, %H:%M:%S") + \
-            " >> Could not connect to awbw website!\n"
+    def connection_error(self, timeout=False):
+        """Appends to an error log, informing when a problem ocurred."""
+        msg = time.strftime("%d/%m/%Y, %H:%M:%S") + " >> "
+        if timeout:
+            msg += "Response time expired when connecting to awbw!\n"
+        else:
+            msg += "Could not connect to the Internet!\n"
         with open(self._error_log, 'a') as f:
             f.write(msg)
 

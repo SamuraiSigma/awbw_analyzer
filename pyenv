@@ -44,6 +44,7 @@ if [ -f "$REQ" ]; then
     source $DIR/bin/activate
     echo "Installing requirements from $REQ..."
     pip3 install -r $REQ
+    rm -f pip-selfcheck.json
 fi
 
 echo "Done!"
